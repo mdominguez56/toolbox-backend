@@ -21,10 +21,18 @@ npm install
 
 ## Usage
 
+### Important
+
+- To be able to display this table in the frontend, you must have the [frontend repository running](https://github.com/mdominguez56/toolbox-frontend).
+
+- The backend can be accessed through the endpoint: **/files/data**
+
 ```python
 # run project
 npm start
 
 # run unit test
 npm test
+
+
 ```
