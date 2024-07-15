@@ -5,14 +5,14 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe("GET /api/data", () => {
-  it("should return data", (done) => {
+describe("GET /api/files", () => {
+  it("should return list of files", (done) => {
     chai
       .request(app)
-      .get("/api/data")
+      .get("/api/files")
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body).to.be.an("object");
+        expect(res.body).to.be.an("array");
         done();
       });
   });

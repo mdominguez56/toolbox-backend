@@ -2,16 +2,21 @@ const express = require("express");
 const axios = require("axios");
 const app = express();
 const PORT = 5000;
+const API_URL = "https://echo-serv.tbxnet.com/v1/secret/files";
+const TOKEN = "aSuperSecretKey";
 
-app.get("/api/data", async (req, res) => {
+app.get("/files", async (req, res) => {
   try {
-    const response = await axios.get(
-      "https://echo-serv.tbxnet.com/v1/echo?text=Test"
-    );
-    const reformattedData = response.data;
-    res.json(reformattedData);
+    const response = await axios.get(API_URL, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    });
+    const files = response.data.files;
+    res.json(files);
   } catch (error) {
-    res.status(500).json({ error: "Error fetching data" });
+    console.error("Error fetching files: ", error);
+    res.status(500).json({ error: "Error fetching files" });
   }
 });
 
