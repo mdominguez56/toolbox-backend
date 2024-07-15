@@ -1,11 +1,15 @@
 const express = require("express");
 const axios = require("axios");
 const csvParser = require("csv-parser");
+const cors = require("cors");
+
 const app = express();
 const PORT = 5000;
 const FILES_API_URL = "https://echo-serv.tbxnet.com/v1/secret/files";
 const FILE_API_URL = "https://echo-serv.tbxnet.com/v1/secret/file";
 const TOKEN = "aSuperSecretKey";
+
+app.use(cors());
 
 app.get("/files/data", async (req, res) => {
   try {
