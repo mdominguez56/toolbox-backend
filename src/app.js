@@ -12,6 +12,8 @@ const TOKEN = "aSuperSecretKey";
 app.use(cors());
 
 app.get("/files/data", async (req, res) => {
+  const { fileName } = req.query;
+
   try {
     const filesResponse = await axios.get(FILES_API_URL, {
       headers: { Authorization: `Bearer ${TOKEN}` },
@@ -21,7 +23,7 @@ app.get("/files/data", async (req, res) => {
     const allFilesData = [];
     let processedFiles = 0;
 
-    files.forEach((file) => {
+    const processFile = (file) => {
       axios
         .get(`${FILE_API_URL}/${file}`, {
           headers: { Authorization: `Bearer ${TOKEN}` },
@@ -43,7 +45,11 @@ app.get("/files/data", async (req, res) => {
             .on("end", () => {
               allFilesData.push({ file, lines: fileData });
               processedFiles++;
-              if (processedFiles === files.length) {
+              console.log(
+                `Processed file: ${file}, Processed files count: ${processedFiles}`
+              );
+              if (processedFiles === (fileName ? 1 : files.length)) {
+                console.log("Sending response with all files data");
                 res.json(allFilesData);
               }
             });
@@ -51,11 +57,23 @@ app.get("/files/data", async (req, res) => {
         .catch((error) => {
           console.error(`Error fetching file ${file}: `, error);
           processedFiles++;
-          if (processedFiles === files.length) {
+          if (processedFiles === (fileName ? 1 : files.length)) {
             res.json(allFilesData);
           }
         });
-    });
+    };
+
+    if (fileName) {
+      const matchedFile = files.find((file) => file.includes(fileName));
+      console.log("Matched file:", matchedFile);
+      if (matchedFile) {
+        processFile(matchedFile);
+      } else {
+        res.status(404).json({ error: "File not found" });
+      }
+    } else {
+      files.forEach(processFile);
+    }
   } catch (error) {
     console.error("Error fetching files: ", error);
     res.status(500).json({ error: "Error fetching files" });

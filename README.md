@@ -20,6 +20,7 @@ This repository responds to the Toolbox backend challenge. The main technologies
 To run this project, you will need to execute the following commands:
 
 ```bash
+nvm use
 npm install
 ```
 
@@ -33,6 +34,20 @@ npm start
 
 # run unit test
 npm test
-
-
 ```
+
+## API Reference
+
+#### Get all files
+
+```http
+  GET /files/data
+```
+
+| Parameter  | Type     | Description                                     |
+| :--------- | :------- | :---------------------------------------------- |
+| `fileName` | `string` | **Optional**. The name of the file to filter by |
+
+## Extra features
+
+- Search function by fileName
