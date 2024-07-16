@@ -11,6 +11,10 @@ This repository responds to the Toolbox backend challenge. The main technologies
 - Axios
 - csv-parser
 
+### Important
+
+- To be able to display this table in the frontend, you must have the [frontend repository running](https://github.com/mdominguez56/toolbox-frontend).
+
 ## Installation
 
 To run this project, you will need to execute the following commands:
@@ -20,10 +24,6 @@ npm install
 ```
 
 ## Usage
-
-### Important
-
-- To be able to display this table in the frontend, you must have the [frontend repository running](https://github.com/mdominguez56/toolbox-frontend).
 
 - The backend can be accessed through the endpoint: **/files/data**
 
