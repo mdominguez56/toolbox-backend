@@ -33,7 +33,7 @@ npm install
 npm start
 
 # run unit test
-npm test
+npm test (In progress...)
 ```
 
 ## API Reference
